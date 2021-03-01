@@ -1,13 +1,24 @@
 <template>
   <v-container>
-    <v-layout row wrap>
+    <v-layout row class="mt-5">
+      <v-flex xs12 class="text-center">
+        <v-progress-circular
+            :size="50"
+            :width="7"
+            color="primary"
+            indeterminate
+            v-if="loading"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap v-if="!loading">
       <v-flex xs12>
         <v-card>
           <v-card-title>
             <h4 class="primary--text">{{ meetup.title }}</h4>
-            <template v-if="true">
+            <template v-if="userIsCreator">
               <v-spacer></v-spacer>
-              <edit-meetup></edit-meetup>
+              <edit-meetup :meetup="meetup"></edit-meetup>
               <v-btn fab small class="error ml-3">
                 <v-icon>mdi-delete-alert-outline</v-icon>
               </v-btn>
@@ -65,6 +76,18 @@ export default {
   computed: {
     meetup() {
       return this.$store.getters.meetup(this.id) || {};
+    },
+    userIsAuthenticated() {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined;
+    },
+    userIsCreator(){
+      if (!this.userIsAuthenticated){
+        return false;
+      }
+      return this.$store.getters.user.id === this.meetup.creatorID
+    },
+    loading() {
+      return this.$store.getters.loading;
     },
   },
 };
