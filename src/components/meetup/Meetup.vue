@@ -75,7 +75,7 @@ export default {
   props: ["id"],
   computed: {
     meetup() {
-      return this.$store.getters.meetup(this.id) || {};
+       return this.$store.getters.meetup(this.id) || {};
     },
     userIsAuthenticated() {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined;

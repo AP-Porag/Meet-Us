@@ -63,7 +63,7 @@ export default new Vuex.Store({
             title:obj[key].title,
             description:obj[key].description,
             location:obj[key].location,
-            imageURL:obj[key].imageURL,
+            imageURL:obj[key].imageUrl,
             date:obj[key].date,
             creatorID:obj[key].creatorID
           })
